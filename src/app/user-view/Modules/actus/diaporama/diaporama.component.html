@@ -1,0 +1,274 @@
+<nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
+        <h3 class="text-uppercase"><strong>{{currentNews?.titre}}</strong></h3>
+        Judo : les actualités du judo en France et dans le monde / {{currentNews?.newscategorie2?.intitule}} / le {{currentNews?.date| date:'dd-MM-yyyy' }}/ source : {{currentNews?.source}}
+       <!--diaporama--><br>
+       <nz-radio-group [(ngModel)]="dotPosition">
+        <label nz-radio-button nzValue="bottom">Bottom</label>
+        <label nz-radio-button nzValue="top">Top</label>
+        <label nz-radio-button nzValue="left">Left</label>
+        <label nz-radio-button nzValue="right">Right</label>
+      </nz-radio-group>
+      <nz-carousel *ngIf="currentNews"[nzDotPosition]="dotPosition" nzAutoPlay>
+        <div nz-carousel-content *ngFor="let image of listImages">
+            <img
+            nz-image 
+            width="100%"
+            height="auto"
+            nzSrc="{{liensNews2022+'/'+image?.path}}" 
+            alt=""
+          />
+        </div>
+      </nz-carousel>
+
+
+      <br><br>
+      <!--social links-->
+      <button nz-button style="font-weight: bolder;margin-right: 2%; background-color:rgb(28, 28, 196) ;color:white" [nzSize]="'large'" >
+        <i nz-icon nzType="facebook"></i>
+        Facebook
+      </button>
+      <button nz-button style="font-weight: bolder;margin-right: 2%; background-color:rgb(37, 92, 107) ;color:white" [nzSize]="'large'" >
+        <i nz-icon nzType="message"></i>
+        Messenger
+      </button>
+      <button nz-button style="font-weight: bolder;margin-right: 2%; background-color:rgb(28, 196, 31) ;color:white" [nzSize]="'large'" >
+        <i nz-icon nzType="whats-app" nzTheme="outline"></i>
+        WhatsApp
+      </button>
+      <button nz-button style="font-weight: bolder;margin-right: 2%; background-color:rgb(0, 232, 248) ;color:white" [nzSize]="'large'" >
+        <i nz-icon nzType="twitter"></i>
+        Twitter
+      </button>
+      <button nz-button style="font-weight: bolder;margin-right: 2%; background-color:rgb(243, 177, 128) ;color:white" [nzSize]="'large'" >
+        <i nz-icon nzType="link"></i>
+        Lien
+      </button>
+      <br>
+      <br>
+      <br>
+      <h5>{{currentNews?.chapo}}</h5><br><br>
+      <nz-divider nzText="Texte"></nz-divider>
+      <p style="font-size: 16px; margin-top: 10px;" innerHTML="{{currentNews?.texte}}"></p>
+      <br>
+     
+      <nz-divider nzText="Liens"></nz-divider>
+
+      <a *ngIf="currentNews?.textlien1" (click)="gotoLien(currentNews.id,currentNews.textlien1)" class="link-danger">--> {{currentNews.textlien1}}</a><br>
+      <a *ngIf="currentNews?.textlien2" (click)="gotoLien(currentNews.id,currentNews.textlien2)" class="link-danger">--> {{currentNews.textlien2}}</a><br>
+      <a *ngIf="currentNews?.textlien3" (click)="gotoLien(currentNews.id,currentNews.textlien3)" class="link-danger">--> {{currentNews.textlien3}}</a><br>
+      <nz-divider nzText="Commentaires"></nz-divider>                             
+      <h4>Réagir à cet article</h4>
+
+
+        <nz-list *ngIf="data?.length" [nzDataSource]="data" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+          <ng-template #item let-item>
+            <nz-comment [nzAuthor]="item.user2?.username" nzDatetime="{{item.date| date:'dd-MM-yyyy HH-mm-ss'}}">
+              <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="image"></nz-avatar>
+              <nz-comment-content>
+                <p>{{ item.commentaire }}</p>
+              </nz-comment-content>
+            </nz-comment>
+          </ng-template>
+        </nz-list>
+        <nz-comment>
+          <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="image"></nz-avatar>
+          <nz-comment-content>
+            <nz-form-item>
+              <textarea [(ngModel)]="inputValue" nz-input rows="4"></textarea>
+            </nz-form-item>
+            <nz-form-item>
+              <button nz-button nzType="primary" [nzLoading]="submitting" [disabled]="!inputValue" (click)="handleSubmit()">
+                Ajouter
+              </button>
+            </nz-form-item>
+          </nz-comment-content>
+        </nz-comment>
+
+    </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+      <div class="element">
+        <h3 class="text-uppercase">En bref</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of latestNews;let index=index">
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                   <a style="color: red"><b>{{item.date| date:'dd/MM/yyyy' }} </b></a> 
+                  <a class="link-primary" (click)="detailsGauche(item.id,index)">{{ item.titre }}</a>
+                  
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+] de breves</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="latestNews?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="auto"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+    <div class="element">
+        <h3 class="text-uppercase">Suggestions d'articles</h3>
+        <nz-list nzItemLayout="horizontal" >
+          <nz-list-item *ngFor="let item of suggestions;let index=index">
+              
+                          <nz-list-item-meta>
+                              <nz-list-item-meta-title>
+                                <a class="link-dark" (click)="detailsSuggestions(item.id,index)">
+                                  <div class="container">
+                                    <div class="row">
+                                      <div class="col">
+                                        <img
+                                        nz-image 
+                                        width="90%"
+                                        height="auto"
+                                        nzSrc="{{liensNews2022+''+(item?.date| date:'yyyy')+'/'+item?.photo}}" 
+                                        alt=""
+                                        />
+                                      </div>
+                                      <div class="col">
+                                        {{item.titre}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </nz-list-item-meta-title>
+                          </nz-list-item-meta>
+                     
+             
+          </nz-list-item>
+         
+          <nz-list-empty *ngIf="suggestions?.length === 0"></nz-list-empty>
+        </nz-list>
+        </div>
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+      <div class="element">
+        <h3 class="text-uppercase">En bref</h3>
+        <nz-list nzItemLayout="horizontal" >
+            <nz-list-item *ngFor="let item of latestNews;let index=index">
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                   <a style="color: red"><b>{{item.date| date:'dd/MM/yyyy' }} </b></a> 
+                  <a class="link-primary" (click)="detailsGauche(item.id,index)">{{ item.titre }}</a>
+                  
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item >
+                <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">[+] de breves</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="latestNews?.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="auto"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+    <div class="element">
+        <h3 class="text-uppercase">Suggestion d'articles</h3>
+        <nz-list-item-meta *ngFor="let item of suggestions">
+          <nz-list-item-meta-title>
+            <a>
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <img
+                      nz-image 
+                      width="90%"
+                      height="auto"
+                      nzSrc="{{liensNews2022+''+(item?.date| date:'yyyy')+'/'+item?.photo}}" 
+                      alt=""
+                      />
+                    </div>
+                    <div class="col">
+                      {{item.titre}}
+                    </div>
+                  </div>
+                </div>
+            </a>
+          </nz-list-item-meta-title>
+      </nz-list-item-meta>
+        </div>
+</div >
+

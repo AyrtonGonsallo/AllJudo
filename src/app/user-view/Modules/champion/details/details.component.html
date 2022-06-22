@@ -1,0 +1,315 @@
+<nz-layout nz-row [nzJustify]="'space-around'" >
+    <nz-content nz-col [nzSm]="24" [nzMd]="15" [nzLg]="15">
+        <h3>Champions de judo, judokas français célèbres : palmarès, photos et vidéos </h3>
+        <br>
+        <div class="container">
+            <div class="row justify-content-between" style="border-bottom:solid ;">
+               <div class="col-lg-4 col-sm-12 col-md-12">
+                   <h5><b>{{championAffiche?.nom}}</b></h5>
+               </div>
+               <div class="col-lg-2 col-sm-2 col-md-2">
+                <i nz-icon nzType="user" class="iconehaut" nzTheme="outline" title="Devenir administrateur" (click)="envoyer_demande()"></i>
+                </div>
+                <div class="col-lg-2 col-sm-2 col-md-2">
+                    <i nz-icon nzType="notification" class="iconehaut" nzTheme="outline" title="S'abonner"></i>
+                </div>
+                <div class="col-lg-2 col-sm-2 col-md-2">
+                    <i nz-icon nzType="usergroup-add" class="iconehaut" nzTheme="outline" title="Devenir fan"></i>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <nz-tabset>
+                    <nz-tab nzTitle="Cv (1)">
+                        <b>Sexe: </b>{{championAffiche?.sexe}}<br>
+                        <b>Pays: </b>{{championAffiche?.pays2?.nomPays}}<br>
+                        <b>Né le: </b>{{championAffiche?.dateNaissance | date:'dd/MM/yyyy' }}<br>
+                        <b>Grade : </b>{{championAffiche?.grade}}<br>
+                        <b>Clubs: </b>{{championAffiche?.clubs}}<br>
+                        <b>Taille: </b>{{championAffiche?.taille}} cm<br>
+                        <b>Catégorie de Poids : </b>{{championAffiche?.poids}} kg<br>
+                        <b>TokuiWaza : </b>{{championAffiche?.tokuiWaza}}<br>
+                        <b>Main Directrice : </b>{{championAffiche?.mainDirectrice}}<br>
+                        <b>Anecdote : </b>{{championAffiche?.anecdote}}<br>
+                        <!--
+                           tableau palmares
+                        -->
+                        <nz-table [nzSize]="'small'"
+                        #rowSelectionTable 
+                        nzShowSizeChanger
+                        [nzData]="listOfDisplayedData"
+                        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                        >
+                        <thead>
+                            <tr>
+                            <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible" [nzActive]="catAge.length > 0" [nzDropdownMenu]="menu">
+                                <i nz-icon nzType="search"></i>
+                            </nz-filter-trigger>
+                            section
+                            </th>
+                            <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible2" [nzActive]="catEvent.length > 0" [nzDropdownMenu]="menu2">
+                                <i nz-icon nzType="search"></i>
+                            </nz-filter-trigger>
+                            type
+                            </th>
+                            <th>participation</th>
+                            <th><img src="{{liensMedailles}}or.png" alt=""></th>
+                            <th><img src="{{liensMedailles}}argent.png" alt=""></th>
+                            <th><img src="{{liensMedailles}}bronze.png" alt=""></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of rowSelectionTable.data">
+                                <td [nzBreakWord]="'true'">{{data.categorie_age}} </td>
+                                <td [nzBreakWord]="'true'">{{ data.categorie_evenement}} </td>
+                                <td [nzBreakWord]="'true'">{{(data.equipe==0)?'Individuel':'En equipe'}}</td>
+                                <td [nzBreakWord]="'true'">{{data.total1er}}</td>
+                                <td [nzBreakWord]="'true'">{{data.total2eme}}</td>
+                                <td [nzBreakWord]="'true'">{{data.total3eme}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <!--
+                           recherche par categorie d'age
+                        -->
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="categorie d'age" [(ngModel)]="catAge" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                          </div>
+                        </div>
+                    </nz-dropdown-menu>
+                    <!--
+                           recherche par categorie d'evenement
+                        -->
+                        <nz-dropdown-menu #menu2="nzDropdownMenu">
+                            <div class="ant-table-filter-dropdown">
+                              <div class="search-box">
+                                <input type="text" nz-input placeholder="categorie d'evenement" [(ngModel)]="catEvent" />
+                                <button nz-button nzSize="small" nzType="primary" (click)="search2()" class="search-button">Search</button>
+                                <button nz-button nzSize="small" (click)="reset2()">Reset</button>
+                              </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </nz-tab>
+                    <nz-tab nzTitle="Resultats ({{listOfDisplayedResults?.length}})">
+                        <nz-table [nzSize]="'small'"
+                        #rowSelectionTable2 
+                        nzShowSizeChanger
+                        [nzData]="listOfDisplayedResults"
+                        (nzCurrentPageDataChange)="onCurrentPageDataChange2($event)"
+                        >
+                        <thead>
+                            <tr>
+                                <th>
+                                    Année
+                                </th>
+                                <th>
+                                    Rang
+                                </th>
+                                <th>
+                                    Evenement
+                                </th>
+                                <th>
+                                    Categorie poids
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of rowSelectionTable2.data">
+                                <td [nzBreakWord]="'true'">{{data.evenement2?.dateDebut| date:'yyyy'}} </td>
+                                <td [nzBreakWord]="'true'">{{ data.rang}} </td>
+                                <td [nzBreakWord]="'true'">{{data.evenement2?.evcategorieevenement2?.intitule}} {{data.evenement2?.evcategorieage2?.intitule}} {{(data.equipeID==0)?'individuel':'par equipe'}} - {{data.evenement2?.nom}}</td>
+                                <td [nzBreakWord]="'true'">{{data.poidID}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    </nz-tab>
+                    <nz-tab nzTitle="Photos({{listOfImages?.length}})">
+                        <div class="container">
+                            <div class="row" >
+                              <div  class="col-lg-4 col-md-3 col-sm-1 gallerie"  *ngFor="let data of listOfDisplayedImages">
+                                    <a (click)="showModal(data)">
+                                        <img src="{{liensImages}}/{{data.galerie_id}}/{{data.nom}}" class="image-gallerie" alt="{{data.nom}}" >
+                                    </a>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- modal pour les images -->
+                          <nz-modal [(nzVisible)]="isVisible" nzTitle="{{title}}" (nzOnCancel)="handleCancel()"  [nzFooter]="null" >
+                            <ng-container *nzModalContent>
+                                <img src="{{src}}"  alt="{{title}}" width="100%" height="auto" >
+                            </ng-container>
+                          </nz-modal>
+                    </nz-tab>
+                    <nz-tab nzTitle="Videos({{listOfVideos?.length}})">
+                        <nz-list nzItemLayout="horizontal" >
+                        <nz-list-item *ngFor="let item of listOfDisplayedVideos;let pos=index">
+                            <div class="container">
+                                <div class="row justify-content-between">
+                                    <div class="col-8 ">
+                                        <nz-list-item-meta>
+                                            <nz-list-item-meta-title>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item "><h5><a (click)="detailsGauche(item.id,pos)" class="link-dark">{{item.titre}}</a></h5></li>
+                                                    <li class="list-group-item trunc" style="display: block" *ngIf="item.evenement" >{{item.evenement?.evcategorieevenement2?.intitule}} {{item.evenement?.nom}} {{item.evenement?.dateDebut| date:'yyyy'}}</li>
+                                                    <li class="list-group-item" *ngIf="item.duree" >Duree: {{item.duree}}</li>
+                                                </ul>
+                                            </nz-list-item-meta-title>
+                                        </nz-list-item-meta>
+                                    </div>
+                                    <div class="col-4" >
+                                        <a (click)="detailsGauche(item.id,pos)">
+                                        <img
+                                        nz-image
+                                        width="100%"
+                                        height="auto"
+                                        nzSrc="{{item.vignette}}" 
+                                        alt=""
+                                      /></a>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                           
+                        </nz-list-item>
+                        
+                        <nz-list-empty *ngIf="listOfDisplayedVideos?.length === 0"></nz-list-empty>
+                      </nz-list>
+                      <nz-pagination [(nzPageIndex)]="currentVideoIndex" [nzTotal]="totalVideos" nzShowSizeChanger [(nzPageSize)]="nombre_videos_par_pages" [nzPageSizeOptions]="[5,10,20,30,50]"(nzPageSizeChange)="getPages()" (nzPageIndexChange)="getPages()"></nz-pagination>
+                    </nz-tab>
+                    <nz-tab nzTitle="Fans({{listOfDisplayedFans?.length}})">
+                        <nz-table [nzSize]="'small'"
+                        #rowSelectionTable3 
+                        nzShowSizeChanger
+                        [nzData]="listOfDisplayedFans"
+                        (nzCurrentPageDataChange)="onCurrentPageDataChange3($event)"
+                        >
+                        <thead>
+                            <tr>
+                                <th nzCustomFilter><nz-filter-trigger [(nzVisible)]="visible3" [nzActive]="fan.length > 0" [nzDropdownMenu]="menu3">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                    username
+                                </th>
+                                <th>
+                                    date
+                                </th>
+                                <th>
+                                    Zone geographique
+                                </th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of rowSelectionTable3.data">
+                                <td [nzBreakWord]="'true'">{{ data.user2.username}} </td>
+                                <td [nzBreakWord]="'true'">{{data.date| date:'dd/MM/yyyy'}} </td>
+                                <td [nzBreakWord]="'true'">{{data.user2.pays?data.user2.pays:'inconnue'}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <nz-dropdown-menu #menu3="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                          <div class="search-box">
+                            <input type="text" nz-input placeholder="username" [(ngModel)]="fan" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search3()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset3()">Reset</button>
+                          </div>
+                        </div>
+                    </nz-dropdown-menu>
+                    </nz-tab>
+                  </nz-tabset>
+            </div>
+        </div>
+        
+        
+
+        </nz-content>
+
+
+
+    <nz-sider nzCollapsible nzBreakpoint="md" [nzWidth]="300" [nzCollapsedWidth]="0" nz-col  [nzSpan]="0" [nzMd]="6" [nzLg]="4" >
+        
+     
+        <div class="element">
+            pub 300x250
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+        
+    
+    </nz-sider>
+</nz-layout>
+
+<div  nz-row [nzJustify]="'center'" class="mobile" style="background-color: white;">
+    <div nz-col [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        
+        <div class="element">
+            <div>pub 300x250</div>
+            
+            <img *ngIf="url"
+                nz-image
+                width="100%"
+                height="600px"
+                [nzSrc]="url"
+                alt=""
+                />
+        </div>
+        <!--newsletter-->
+        <div class="card element" style="width: 100%;">
+            <div class="card-header redwhite" >
+                Newsletter
+            </div>
+            <div class="card-body" style="padding:5px">
+              <p>Restez informés chaque semaine et profitez d'offres exclusives sur <a href="https://www.alljudo.shop" target="_blank">alljudo shop</a>.</p>
+              <button type="button" class="btn redwhite" style="width: 60%;" >Je m'abonne</button>
+            </div>
+       </div>
+        <!--ajouter un tournoi-->
+       <div class="card element" style="width: 100%;">
+        <div class="card-header redwhite" >
+            AJOUTER UN TOURNOI
+        </div>
+        <div class="card-body" style="padding:5px">
+          <p>Vous êtes organisateur d'un tournoi ou d'un stage, vous pouvez annoncer gratuitement votre manifestation et mettre en ligne le dossier de présentation au fomat PDF.
+
+            <b>Remplissez votre formulaire pour référencer votre manifestation en moins de deux minutes, alors n'attendez-pas...</b></p>
+          <button type="button" class="btn redwhite" style="width: 60%;" >J'ajoute mon tournoi</button>
+        </div>
+   </div>
+   
+    
+</div >
+

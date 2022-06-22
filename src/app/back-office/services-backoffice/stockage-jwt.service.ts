@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-const ACCESS_TOKEN_KEY = 'access-token';
-const REFRESH_TOKEN_KEY = 'refresh-token';
-const USER_KEY = 'utilisateur';
+import { VariablesGlobales} from '../../sharedModule/Variables-Globales';
+const ACCESS_TOKEN_KEY = VariablesGlobales.cleAccessToken;
+const REFRESH_TOKEN_KEY = VariablesGlobales.cleRefreshToken;
+const USER_KEY = VariablesGlobales.cleUserBack;
+const USER_KEY2 = VariablesGlobales.cleUserFront;
+const USER_KEY3 = VariablesGlobales.cleDetailsUserFront;
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +37,29 @@ export class StockageJwtService {
     if (user) {
       return JSON.parse(user);
     }
-    return {};
+    return false;
   }
+  public saveUserNormal(user2: any): void {
+    window.sessionStorage.removeItem(USER_KEY2);
+    window.sessionStorage.setItem(USER_KEY2, JSON.stringify(user2));
+  }
+  public getUserNormal(): any {
+    const user2 = window.sessionStorage.getItem(USER_KEY2);
+    if (user2) {
+      return JSON.parse(user2);
+    }
+    return false;
+  }
+  public saveUserNormalDetails(user2: any): void {
+    window.sessionStorage.removeItem(USER_KEY3);
+    window.sessionStorage.setItem(USER_KEY3, JSON.stringify(user2));
+  }
+  public getUserNormalDetails(): any {
+    const user2 = window.sessionStorage.getItem(USER_KEY3);
+    if (user2) {
+      return JSON.parse(user2);
+    }
+    return false;
+  }
+
 }

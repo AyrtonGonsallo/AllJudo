@@ -1,27 +1,27 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light NAV">
+<nav class="navbar fixed-top navbar-expand-md navbar-light NAV">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div >
+      <div (click)="goto('home')">
         <img class="logo" nz-image  [nzSrc]="src" />
     </div>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">ACTUS</a>
+            <a class="nav-link active" aria-current="page" (click)="goto('actus')">ACTUS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-uppercase" href="#">résultats</a>
+            <a class="nav-link text-uppercase" (click)="goto('resultats')">résultats</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">CALENDRIER</a>
+            <a class="nav-link" (click)="goto('calendrier')">CALENDRIER</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">JUDOKAS</a>
+            <a class="nav-link" (click)="goto('champions')">JUDOKAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-uppercase" href="#">vidéos</a>
+            <a class="nav-link text-uppercase" (click)="goto('videos')">vidéos</a>
           </li>
         </ul>
         
@@ -35,6 +35,79 @@
             <i nz-icon nzType="instagram" nzTheme="fill"></i>
             <i nz-icon nzType="twitter-circle" nzTheme="fill"></i>
         </div>
-      </div>
+        <div >
+            <i nz-icon title="s'authentifier" nzType="user" nzTheme="outline" data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="!isloggedIn"></i>
+            <div *ngIf="isloggedIn" >
+              <a nz-dropdown [nzDropdownMenu]="menu" >
+                <i  nz-icon [title]="userName" nzType="logout" nzTheme="outline" ></i>
+              </a>
+              <nz-dropdown-menu #menu="nzDropdownMenu" style="top:100px">
+                <ul nz-menu nzSelectable >
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item></li>
+                  <li nz-menu-item (click)="loggout()" >se deconnecter</li>
+                  <li nz-menu-item (click)="espace_membre()">Mon espace</li>
+                </ul>
+              </nz-dropdown-menu>
+            </div>
+            
+            <i nz-icon title="boutique alljudo.shop" nzType="shopping-cart" nzTheme="outline"></i>
+        </div>
+
+        
+       </div>
     </div>
   </nav>
+
+
+  <div class="modal fade suppreme" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Authentification Utilisateur</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form nz-form [formGroup]="userForm" class="login-form" (ngSubmit)="submitForm()">
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Nom d'utilisateur requis!">
+                    <nz-input-group nzPrefixIcon="user">
+                      <input type="text" nz-input formControlName="login_front" placeholder="Nom d'utilisateur" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Mot de passe requis!">
+                    <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+                      <input [type]="passwordVisible ? 'text' : 'password'"
+                      nz-input formControlName="password_front" placeholder="Mot de passe" />
+                    </nz-input-group>
+                    <ng-template #suffixTemplate>
+                      <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <a nz-button nzType="link" class="form-links" >Mot de passe oublié ?</a><br>Pas encore inscrit ?
+                <a nz-button nzType="link" class="form-links" (click)="inscription()" data-bs-dismiss="modal" >Inscrivez vous aujourd'hui...</a><br>
+                <button nz-button class="login-form-button login-form-margin" data-bs-dismiss="modal" [nzType]="'primary'">Se connecter</button>
+
+              </form>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>

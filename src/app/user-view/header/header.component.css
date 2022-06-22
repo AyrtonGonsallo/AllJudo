@@ -36,3 +36,16 @@ i:hover {
 .social{
   margin-left: 40px;
 }
+.suppreme{
+  z-index: 9999999999;
+}
+.form-links{
+  font-size: large;
+}
+.form-links:hover {
+  color: #ff0500;
+  cursor: pointer;
+}
+img{
+  pointer-events: none; user-select: none;
+}
