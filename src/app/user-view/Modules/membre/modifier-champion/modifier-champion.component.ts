@@ -1,5 +1,5 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -33,7 +33,7 @@ export class ModifierChampionComponent implements OnInit {
   listePays:any;
   clubs:any;
   currentChampion:any;
-  championForm!: FormGroup;
+  championForm!: UntypedFormGroup;
   mainDirectrices() : Array<string> {
     var keys = Object.keys(this.maindirectices);
     return keys.slice(keys.length / 2);
@@ -42,7 +42,7 @@ export class ModifierChampionComponent implements OnInit {
   listOfDisplayedResults:any
   listOfDisplayedSimilars:any
   listOfResults:any
-  constructor(@Inject(LOCALE_ID) private locale: string,private stockage:StockageJwtService,private auth:AuthentificationService,private fb: FormBuilder,private championService:ChampionsService,private route: ActivatedRoute,private eventService:EvenementsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
+  constructor(@Inject(LOCALE_ID) private locale: string,private stockage:StockageJwtService,private auth:AuthentificationService,private fb: UntypedFormBuilder,private championService:ChampionsService,private route: ActivatedRoute,private eventService:EvenementsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
 
   ngOnInit(): void {
     this.lienspubs=this.dataProvider.getLiensPubs()

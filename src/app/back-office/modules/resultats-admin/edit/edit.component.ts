@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -31,8 +31,8 @@ export class EditComponent implements OnInit {
   id?:number;
   size: NzSelectSizeType = 'large';
   currentResult:any;
-  resultatAdminForm!: FormGroup;
-  constructor(private dataProvider:ProviderService,private fb: FormBuilder,private route: ActivatedRoute,private msg: NzMessageService,private championService:ChampionsService) { }
+  resultatAdminForm!: UntypedFormGroup;
+  constructor(private dataProvider:ProviderService,private fb: UntypedFormBuilder,private route: ActivatedRoute,private msg: NzMessageService,private championService:ChampionsService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

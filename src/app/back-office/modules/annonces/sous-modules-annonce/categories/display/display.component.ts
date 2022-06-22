@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
 import { Categorie } from './../../../../../models/classes/Categorie';
@@ -16,8 +16,8 @@ export class DisplayComponent implements OnInit {
   size: NzSelectSizeType = 'large';
   listOfDisplayedData: any;
   listOfData: any;
-  categorieForm!: FormGroup;
-  constructor(private dataProvider:ProviderService,private fb: FormBuilder,private ecritService:EcritureService,private msg: NzMessageService) { }
+  categorieForm!: UntypedFormGroup;
+  constructor(private dataProvider:ProviderService,private fb: UntypedFormBuilder,private ecritService:EcritureService,private msg: NzMessageService) { }
 
 
   ngOnInit(): void {

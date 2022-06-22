@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -17,9 +17,9 @@ export class DisplayComponent implements OnInit {
   listePays:any
   listOfDisplayedData:any
   listOfData:any
-  clubForm!: FormGroup;
+  clubForm!: UntypedFormGroup;
   size: NzSelectSizeType = 'large';
-  constructor(private route: ActivatedRoute,private fb: FormBuilder,private router: Router,private dataProvider:ProviderService,private clubService:ClubsService,private msg: NzMessageService) { }
+  constructor(private route: ActivatedRoute,private fb: UntypedFormBuilder,private router: Router,private dataProvider:ProviderService,private clubService:ClubsService,private msg: NzMessageService) { }
 
   ngOnInit(): void {
     this.clubForm = this.fb.group({

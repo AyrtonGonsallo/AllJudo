@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -14,7 +14,7 @@ import { ProviderService } from 'src/app/back-office/services-backoffice/provide
   styleUrls: ['./add-youtube-video.component.css']
 })
 export class AddYoutubeVideoComponent implements OnInit {
-  videoForm!: FormGroup;
+  videoForm!: UntypedFormGroup;
   video:any
   id?:string
   size: NzSelectSizeType = 'large';
@@ -30,7 +30,7 @@ categories() : Array<string> {
   var keys = Object.keys(this.videoCategorie);
   return keys.slice(keys.length / 2);
 }
-  constructor(private route: ActivatedRoute,private fb: FormBuilder,private router: Router,private dataProvider:ProviderService,private ecritService:EcritureService,private msg: NzMessageService) { }
+  constructor(private route: ActivatedRoute,private fb: UntypedFormBuilder,private router: Router,private dataProvider:ProviderService,private ecritService:EcritureService,private msg: NzMessageService) { }
 
   ngOnInit(): void {
     this.videoForm = this.fb.group({

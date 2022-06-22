@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -33,9 +33,9 @@ listOfDisplayedData:any
 listOfData:any
 id?:number;
 listeEvents:any
-videoForm!: FormGroup;
+videoForm!: UntypedFormGroup;
 size: NzSelectSizeType = 'large';
-constructor(private route: ActivatedRoute,private fb: FormBuilder,private router: Router,private dataProvider:ProviderService,private ecritService:EcritureService,private msg: NzMessageService) { }
+constructor(private route: ActivatedRoute,private fb: UntypedFormBuilder,private router: Router,private dataProvider:ProviderService,private ecritService:EcritureService,private msg: NzMessageService) { }
 ngOnInit(): void {
   this.route.params.subscribe(params => {
     this.id = parseInt(params["id"]);

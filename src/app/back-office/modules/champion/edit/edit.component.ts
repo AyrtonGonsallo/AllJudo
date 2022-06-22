@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -18,7 +18,7 @@ export class EditComponent implements OnInit {
   listePays:any;
   clubs:any;
   currentChampion:any;
-  championForm!: FormGroup;
+  championForm!: UntypedFormGroup;
   size: NzSelectSizeType = 'large';
   doublonPotentiel: any;
   mainDirectrices() : Array<string> {
@@ -30,7 +30,7 @@ export class EditComponent implements OnInit {
   listOfDisplayedSimilars:any
   listOfResults:any
   listOfSimilars:any
-  constructor(private evenementService:EvenementsService,private dataProvider:ProviderService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private championService:ChampionsService,private evenS:EvenementsService,private route: ActivatedRoute) {
+  constructor(private evenementService:EvenementsService,private dataProvider:ProviderService,private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private championService:ChampionsService,private evenS:EvenementsService,private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {

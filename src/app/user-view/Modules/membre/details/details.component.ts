@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit {
   clubs: any;
   listePays: any;
   championsModifiables:any
-  constructor(private stockage:StockageJwtService,private auth:AuthentificationService,private fb: FormBuilder,private championService:ChampionsService,private route: ActivatedRoute,private eventService:EvenementsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
+  constructor(private stockage:StockageJwtService,private auth:AuthentificationService,private fb: UntypedFormBuilder,private championService:ChampionsService,private route: ActivatedRoute,private eventService:EvenementsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
   subscription1$?: Subscription 
     subscription2$?: Subscription 
     subscription3$?: Subscription 
@@ -32,7 +32,7 @@ export class DetailsComponent implements OnInit {
   caeList:any
   caeListAcceptes:any
   lienspubs?:string
-  userForm!: FormGroup;
+  userForm!: UntypedFormGroup;
   ngOnInit(): void {
     this.userForm = this.fb.group({
       nom: [null, [Validators.required]],

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -27,7 +27,7 @@ tailles() : Array<string> {
   var keys = Object.keys(this.taille);
   return keys.slice(keys.length / 2);
 }
-  banniereForm!: FormGroup;
+  banniereForm!: UntypedFormGroup;
   restrictions:string=""
   evenements: Array<any> = [];
   bannierecategories: Array<any> = [];
@@ -61,7 +61,7 @@ tailles() : Array<string> {
     
   }
 
-  constructor(private dataProvider:ProviderService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private ecritService:EcritureService,private route: ActivatedRoute) {
+  constructor(private dataProvider:ProviderService,private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private ecritService:EcritureService,private route: ActivatedRoute) {
     
 
     

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { EvenementsService } from 'src/app/back-office/services-backoffice/evenements.service';
@@ -16,12 +16,12 @@ export class ResultatComponent implements OnInit {
   id?: number;
   listOfData:any;
   evenement:any;
-  fileForm!: FormGroup;
+  fileForm!: UntypedFormGroup;
   listOfDisplayedData:any;
   listOfCurrentPageData: any;
   fileList: NzUploadFile[] = [];
   uploading: boolean=false;
-  constructor(private http:HttpClient,private route: ActivatedRoute,private fb: FormBuilder,private msg: NzMessageService,private evenementService:EvenementsService) { }
+  constructor(private http:HttpClient,private route: ActivatedRoute,private fb: UntypedFormBuilder,private msg: NzMessageService,private evenementService:EvenementsService) { }
 
   ngOnInit(): void {
     this.fileForm = this.fb.group({

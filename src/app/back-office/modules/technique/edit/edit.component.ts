@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Technique } from 'src/app/back-office/models/classes/Technique';
@@ -13,9 +13,9 @@ import { ProviderService } from 'src/app/back-office/services-backoffice/provide
 })
 export class EditComponent implements OnInit {
 id?:number
-techniqueForm!: FormGroup;
+techniqueForm!: UntypedFormGroup;
   currentTech: any;
-constructor(private route: ActivatedRoute,private fb: FormBuilder,private router: Router,private dataProvider:ProviderService,private msg: NzMessageService,private ecritService:EcritureService) { }
+constructor(private route: ActivatedRoute,private fb: UntypedFormBuilder,private router: Router,private dataProvider:ProviderService,private msg: NzMessageService,private ecritService:EcritureService) { }
 
 ngOnInit(): void {
   this.route.params.subscribe(params => {

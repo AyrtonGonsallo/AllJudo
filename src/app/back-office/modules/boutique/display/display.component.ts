@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -22,8 +22,8 @@ export class DisplayComponent implements OnInit {
 }
 size: NzSelectSizeType = 'large';
   listOfData: any;
-  articleForm!: FormGroup;
-  constructor(private route: ActivatedRoute,private fb: FormBuilder,private router: Router,private dataProvider:ProviderService,private msg: NzMessageService,private ecritService:EcritureService) { }
+  articleForm!: UntypedFormGroup;
+  constructor(private route: ActivatedRoute,private fb: UntypedFormBuilder,private router: Router,private dataProvider:ProviderService,private msg: NzMessageService,private ecritService:EcritureService) { }
 
   ngOnInit(): void {
     this.articleForm = this.fb.group({

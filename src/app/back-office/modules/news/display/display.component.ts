@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
 import { News } from 'src/app/back-office/models/classes/News';
@@ -21,7 +21,7 @@ export class DisplayComponent implements OnInit {
     var keys = Object.keys(this.typenews);
     return keys.slice(keys.length / 2);
 }
-  newsForm!: FormGroup;
+  newsForm!: UntypedFormGroup;
   evenements: Array<any> = [];
   newscategories: Array<any> = [];
   size: NzSelectSizeType = 'large';
@@ -67,7 +67,7 @@ export class DisplayComponent implements OnInit {
     );
   }
 
-  constructor(private dataProvider:ProviderService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private newsService:NewsService,private evenS:EvenementsService,private route: ActivatedRoute) {
+  constructor(private dataProvider:ProviderService,private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private newsService:NewsService,private evenS:EvenementsService,private route: ActivatedRoute) {
     
 
     

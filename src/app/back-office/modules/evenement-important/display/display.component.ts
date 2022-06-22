@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -15,7 +15,7 @@ import { ProviderService } from 'src/app/back-office/services-backoffice/provide
 export class DisplayComponent implements OnInit {
 
   
-  evenementImportantForm!: FormGroup;
+  evenementImportantForm!: UntypedFormGroup;
   types: Array<{ label: string; value: string }> = [];
   evenementImportants: Array<{ label: string; value: string }> = [];
   size: NzSelectSizeType = 'large';
@@ -45,7 +45,7 @@ export class DisplayComponent implements OnInit {
     
   }
 
-  constructor(private router: Router,private route:ActivatedRoute,private fb: FormBuilder,private msg: NzMessageService,private evenementImportantService:EvenementsService) {
+  constructor(private router: Router,private route:ActivatedRoute,private fb: UntypedFormBuilder,private msg: NzMessageService,private evenementImportantService:EvenementsService) {
     
   }
 

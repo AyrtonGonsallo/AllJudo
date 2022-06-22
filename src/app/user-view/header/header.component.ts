@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { StockageJwtService } from 'src/app/back-office/services-backoffice/stockage-jwt.service';
@@ -16,9 +16,9 @@ export class HeaderComponent implements OnInit {
   isloggedIn = false;
   errorMessage = '';
   userName?:string
-  userForm!: FormGroup;
+  userForm!: UntypedFormGroup;
   passwordVisible = false;
-  constructor(private fb: FormBuilder,private router: Router,private msg: NzMessageService,private authService: AuthentificationService,private stockage:StockageJwtService) {
+  constructor(private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private authService: AuthentificationService,private stockage:StockageJwtService) {
   }
 
   ngOnInit(): void {

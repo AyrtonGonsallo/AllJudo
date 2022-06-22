@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -23,12 +23,12 @@ export class DemandeAdminComponent implements OnInit {
   championAffiche:any//ce qui est a l'ecran
   lienspubs?:string
   situationAE= SituationAdminExterne;  
-  demandeForm!: FormGroup;
+  demandeForm!: UntypedFormGroup;
   situations() : Array<string> {
     var keys = Object.keys(this.situationAE);
     return keys.slice(keys.length / 2);
 }
-  constructor(private route: ActivatedRoute,private fb: FormBuilder,private stockage:StockageJwtService,private eventService:EvenementsService,private championService:ChampionsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
+  constructor(private route: ActivatedRoute,private fb: UntypedFormBuilder,private stockage:StockageJwtService,private eventService:EvenementsService,private championService:ChampionsService,private pubService:PublicitesService,private router: Router,private msg: NzMessageService,private dataProvider:ProviderService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

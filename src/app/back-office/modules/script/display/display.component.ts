@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ChampionsService } from 'src/app/back-office/services-backoffice/champions.service';
@@ -28,7 +28,7 @@ export class DisplayComponent implements OnInit {
   pas_valeur_deb?:number 
   pas_valeur_fin?:number
   pas:any
-  constructor(private dataProvider:ProviderService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private championService:ChampionsService,private route: ActivatedRoute) { }
+  constructor(private dataProvider:ProviderService,private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private championService:ChampionsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.pas = [5,10,20,30,50,100,200];

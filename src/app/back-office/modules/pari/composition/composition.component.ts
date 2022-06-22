@@ -1,6 +1,6 @@
 import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TransferItem } from 'ng-zorro-antd/transfer';
@@ -21,7 +21,7 @@ export class CompositionComponent implements OnInit {
     listOfData:any;
     listOfDisplayedData:any;
     currentPari: any;
-    compoForm!: FormGroup;
+    compoForm!: UntypedFormGroup;
     fileList: NzUploadFile[] = [];
     uploading: boolean=false;
   submitForm(): void {
@@ -29,7 +29,7 @@ export class CompositionComponent implements OnInit {
     
   }
   
-  constructor(private http:HttpClient,private dataProvider:ProviderService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private ecritService:EcritureService,private route: ActivatedRoute) {
+  constructor(private http:HttpClient,private dataProvider:ProviderService,private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private ecritService:EcritureService,private route: ActivatedRoute) {
     
   
     

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormBuilder,Validators } from '@angular/forms';
+import { UntypedFormGroup,UntypedFormBuilder,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthentificationAdminJWTService } from '../services-backoffice/authentification-admin-jwt.service';
@@ -12,7 +12,7 @@ import {StockageJwtService} from '../services-backoffice/stockage-jwt.service';
 })
 export class LoginComponent implements OnInit {
   src = `../../assets/images/logoSite.PNG`;
-  constructor(private fb: FormBuilder,private router: Router,private msg: NzMessageService,private authService: AuthentificationAdminJWTService,private stockage:StockageJwtService) { }
+  constructor(private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private authService: AuthentificationAdminJWTService,private stockage:StockageJwtService) { }
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       userName: [null, [Validators.required]],
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   isSuccessful = false;
   isloggedIn = false;
   errorMessage = '';
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   passwordVisible = false;
 
   submitForm(): void {

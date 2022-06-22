@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -22,9 +22,9 @@ export class FormulaireComponent implements OnInit {
   listePays:any
   listeGrades:any
   pub300x250:any
-  inscriptionForm!: FormGroup;
+  inscriptionForm!: UntypedFormGroup;
 constructor(
-private pubService:PublicitesService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private authService: AuthentificationService,private dataProvider:ProviderService) { }
+private pubService:PublicitesService,private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private authService: AuthentificationService,private dataProvider:ProviderService) { }
 
   ngOnInit(): void {
     this.pubService.getRandomBanniere_par_taille("300x250").subscribe(

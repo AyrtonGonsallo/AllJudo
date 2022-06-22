@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -16,7 +16,7 @@ import { ProviderService } from 'src/app/back-office/services-backoffice/provide
 })
 export class EditComponent implements OnInit {
   id?: number;
-  newsForm!: FormGroup;
+  newsForm!: UntypedFormGroup;
   evenements: Array<any> = [];
   newscategories: Array<any> = [];
   size: NzSelectSizeType = 'large';
@@ -27,7 +27,7 @@ export class EditComponent implements OnInit {
     return keys.slice(keys.length / 2);
 }
 
-  constructor(private dataProvider:ProviderService,private route: ActivatedRoute,private fb: FormBuilder,private msg: NzMessageService,private newsService:NewsService,private evenS:EvenementsService) { }
+  constructor(private dataProvider:ProviderService,private route: ActivatedRoute,private fb: UntypedFormBuilder,private msg: NzMessageService,private newsService:NewsService,private evenS:EvenementsService) { }
 
   ngOnInit(): void {
     //read parameters here

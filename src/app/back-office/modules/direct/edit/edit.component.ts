@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -15,9 +15,9 @@ export class EditComponent implements OnInit {
   id?: number;
   evenements: any;
   size: NzSelectSizeType = 'large';
-  evenementImportantForm!: FormGroup;
+  evenementImportantForm!: UntypedFormGroup;
   currentEvent: any;
-  constructor(private fb: FormBuilder,private route: ActivatedRoute,private evenementImportantService:EvenementsService,private msg: NzMessageService) { }
+  constructor(private fb: UntypedFormBuilder,private route: ActivatedRoute,private evenementImportantService:EvenementsService,private msg: NzMessageService) { }
 
   ngOnInit(): void {
     this.evenementImportantForm = this.fb.group({

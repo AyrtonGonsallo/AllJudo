@@ -1,6 +1,6 @@
 import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -16,13 +16,13 @@ import { EvenementsService } from 'src/app/back-office/services-backoffice/evene
 })
 export class LiveComponent implements OnInit {
   id?:number;
-  evenementImportantDirectForm!: FormGroup;
+  evenementImportantDirectForm!: UntypedFormGroup;
   size: NzSelectSizeType = 'large';
   imagesList: NzUploadFile[] = [];
   uploadingImages: boolean=false;
   mp3List:  NzUploadFile[] = [];
   uploadingMp3: boolean=false;
-  constructor(private http:HttpClient,private fb: FormBuilder,private route: ActivatedRoute,private msg: NzMessageService,private evenementImportantService:EvenementsService) { }
+  constructor(private http:HttpClient,private fb: UntypedFormBuilder,private route: ActivatedRoute,private msg: NzMessageService,private evenementImportantService:EvenementsService) { }
   evenementD:any;
   ngOnInit(): void {
     this.route.params.subscribe(params => {

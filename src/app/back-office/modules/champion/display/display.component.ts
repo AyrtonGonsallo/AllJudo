@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
@@ -20,7 +20,7 @@ export class DisplayComponent implements OnInit {
   clubs:any;
   lettres:any=["","A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 lettre_index=1
-  championForm!: FormGroup;
+  championForm!: UntypedFormGroup;
   size: NzSelectSizeType = 'large';
   listOfDisplayedData:any;
   listOfData: any;
@@ -28,7 +28,7 @@ lettre_index=1
     var keys = Object.keys(this.maindirectices);
     return keys.slice(keys.length / 2);
 }
-constructor(private dataProvider:ProviderService,private fb: FormBuilder,private router: Router,private msg: NzMessageService,private championService:ChampionsService,private route: ActivatedRoute) {
+constructor(private dataProvider:ProviderService,private fb: UntypedFormBuilder,private router: Router,private msg: NzMessageService,private championService:ChampionsService,private route: ActivatedRoute) {
 }
 
   ngOnInit(): void {
